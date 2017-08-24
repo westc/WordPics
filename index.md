@@ -1,2 +1,2 @@
 # WordPics
-{% include test.html %}
+{% include index-body.html %}
