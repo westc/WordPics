@@ -62,7 +62,6 @@
       },
       methods: {
         handleFile: function() {
-          console.log('handleFile');
           var self = this;
           var files = $('#fileImage')[0].files;
           if (files && files[0]) {
@@ -89,33 +88,36 @@
 
     function createTextImageCanvas(url, bgColor, fontSize, textHeightPercent, getMoreText) {
       var canvas = document.createElement('canvas');
-      canvas.style.cursor = 'pointer';
-      canvas.addEventListener('click', function() {
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL();
-        a.target = '_blank';
-        a.click();
-      });
 
       var ctx = canvas.getContext('2d');
 
       var img = new Image();
       img.onload = function() {
-        var w = canvas.width = img.width;
-        var h = canvas.height = img.height;
+        var targetWidth = $(canvas).parent().width();
+        var w = img.width;
+        var h = img.height;
+        if (w > targetWidth) {
+          h = targetWidth * h / w;
+          w = targetWidth;
+        }
+        canvas.width = w;
+        canvas.height = h;
+        
+        ctx.drawImage(img, 0, 0, w, h);
+        var pattern = ctx.createPattern(canvas, 'no-repeat');
 
         var x = 0;
         var y = Math.ceil(fontSize - fontSize * (1 - textHeightPercent));
         var textHeight = fontSize * textHeightPercent;
 
-        ctx.fillStyle = ctx.createPattern(img, 'no-repeat');
+        ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, w, h);
 
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, w, h);
 
         ctx.rect(0, 0, w, h);
-        ctx.fillStyle = ctx.createPattern(img, 'no-repeat');
+        ctx.fillStyle = pattern;
         ctx.font = 'bold ' + fontSize + 'px "monospace", "courier", "courier new"';
 
         var text, textWidth, skipGetText = false;
