@@ -1,1 +1,130 @@
-<h1>Hello world!!!</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>WordPics</title>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Vue library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+
+    <style type="text/css">
+      html {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 8px;
+      }
+      body > :nth-child(1) {
+        margin-top: 0;
+      }
+      .form-group-table {
+        display: table;
+        width: 100%;
+      }
+      .form-label-cell {
+        width: 1px;
+        white-space: nowrap;
+        display: table-cell;
+        padding-right: 0.5em;
+      }
+      .form-control-cell {
+        display: table-cell;
+      }
+    </style>
+
+    <script type="text/javascript">
+      $(function() {
+        var myVue = new Vue({
+          el: '#vueMain',
+          data: {
+            fontSize: 10,
+            color: '#000000',
+            alpha: 1,
+            message: '01',
+            textPercent: 1
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>WordPics</h1>
+
+    <div id="vueMain">
+      <div class="form-group form-group-table">
+        <div class="form-label-cell">
+          <label for="txtMessage">Message:</label>
+        </div>
+        <div class="form-control-cell">
+          <input id="txtMessage" type="text" class="form-control" v-model="message" placeholder="01" />
+        </div>
+      </div>
+
+      <div class="form-group form-group-table">
+        <div class="form-label-cell">
+          <label for="inputColor">Color:</label>
+        </div>
+        <div class="form-label-cell" style="font-weight: normal;">
+          {{ color }}
+        </div
+          <div class="form-control-cell">
+          <input id="inputColor" type="color" v-model="color" />
+        </div>
+      </div>
+
+      <div class="form-group form-group-table">
+        <div class="form-label-cell">
+          <label for="inputAlpha">Alpha:</label>
+        </div>
+        <div class="form-label-cell" style="font-weight: normal;">
+          {{ Math.round(100 * alpha) }}
+        </div>
+        <div class="form-control-cell">
+          <input id="inputAlpha" type="range" min="0" max="1" step="0.01" v-model="alpha" />
+        </div>
+      </div>
+
+      <div class="form-group form-group-table">
+        <div class="form-label-cell">
+          <label for="inputFontSize">Font Size:</label>
+        </div>
+        <div class="form-label-cell" style="font-weight: normal;">
+          {{ fontSize }}
+        </div>
+        <div class="form-control-cell">
+          <input id="inputFontSize" type="range" min="0" max="1" v-model="fontSize" step="0.05" />
+        </div>
+      </div>
+
+      <div class="form-group form-group-table">
+        <div class="form-label-cell">
+          <label for="inputTextHeight">Text Height:</label>
+        </div>
+        <div class="form-label-cell" style="font-weight: normal;">
+          {{ textPercent * fontSize }}
+        </div>
+        <div class="form-control-cell">
+          <input id="inputTextHeight" type="range" min="0.1" max="1" step="0.05" v-model="textHeightPercent" />
+        </div>
+      </div>
+
+      <div><input id="fileImage" type="file" accept="image/png, image/jpeg" /></div>
+
+      <div id="imagePlaceholder"></div>
+    </div>
+  </body>
+</html>
